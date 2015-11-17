@@ -83,7 +83,7 @@ describe('Layout', () => {
         );
       });
 
-      it('renders <inlineStyles> tags based on `inlineStyles` prop', () => {
+      it('renders <style> tags based on `inlineStyles` prop', () => {
         renderer.render((
           <Layout
             title="head-tests"
@@ -148,6 +148,30 @@ describe('Layout', () => {
             <head>
               <title>head-tests</title>
               <link rel="icon" id="foo" href="favicon.ico"/>
+            </head>
+            <body>{null}</body>
+          </html>
+        );
+      });
+
+      it('renders <script> tags based on `inlineScripts` prop', () => {
+        renderer.render((
+          <Layout
+            title="head-tests"
+            inlineScripts={[
+              'console.log("hey there");',
+              { type: 'text/javascript', children: 'var a = 5;' },
+              { type: 'text/javascript', children: 'var b = { c: 7 };' },
+            ]}
+          />
+        ), {});
+        renderer.getRenderOutput().should.deep.equal(
+          <html lang="en">
+            <head>
+              <title>head-tests</title>
+              <script>{'console.log("hey there");'}</script>
+              <script type="text/javascript">{'var a = 5;'}</script>
+              <script type="text/javascript">{'var b = { c: 7 };'}</script>
             </head>
             <body>{null}</body>
           </html>
