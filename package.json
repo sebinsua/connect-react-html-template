@@ -1,6 +1,6 @@
 {
   "name": "@economist/connect-react-html-template",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Serving React HTML templates as Connect Middleware!",
   "author": "The Economist (http://economist.com)",
   "license": "ISC",
