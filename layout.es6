@@ -131,6 +131,23 @@ export default class Layout extends Component {
     });
   }
 
+  dangerousRenderArrayOfElements(Element, array) {
+    return (array || []).map((children) => {
+      let props = children;
+      if (typeof props !== 'object') {
+        props = { children };
+      }
+
+      const { children: innerHtml, ...remainingProps } = props;
+      return (
+        <Element
+          {...remainingProps}
+          dangerouslySetInnerHTML={{ __html: innerHtml }} // eslint-disable-line
+        />
+      );
+    });
+  }
+
   render() {
     const htmlProps = {};
     if (this.props.lang) {
@@ -151,7 +168,7 @@ export default class Layout extends Component {
         return { rel: 'stylesheet', ...props };
       }))),
       ...(this.renderArrayOfElements('link', this.props.links)),
-      ...(this.renderArrayOfElements('script', this.props.inlineScripts)),
+      ...(this.dangerousRenderArrayOfElements('script', this.props.inlineScripts)),
       ...(this.renderArrayOfElements('script', (this.props.scripts || []).map((src) => {
         let props = src;
         if (typeof src === 'string') {
