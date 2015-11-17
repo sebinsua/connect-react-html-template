@@ -87,6 +87,15 @@ export default class Layout extends Component {
           rel: PropTypes.string,
         })
       ),
+      inlineScripts: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.shape({
+            ...globalAttributes,
+            type: PropTypes.string,
+          }),
+        ])
+      ),
       scripts: PropTypes.arrayOf(
         PropTypes.oneOfType([
           PropTypes.string,
@@ -142,6 +151,7 @@ export default class Layout extends Component {
         return { rel: 'stylesheet', ...props };
       }))),
       ...(this.renderArrayOfElements('link', this.props.links)),
+      ...(this.renderArrayOfElements('script', this.props.inlineScripts)),
       ...(this.renderArrayOfElements('script', (this.props.scripts || []).map((src) => {
         let props = src;
         if (typeof src === 'string') {
