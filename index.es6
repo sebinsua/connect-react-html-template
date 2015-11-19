@@ -19,7 +19,7 @@ export default ({ headers = {}, doctype = '<!doctype html>', layout = DefaultLay
       response.write(
         renderToString(
           <Layout
-            path={parseUrl(request.url).pathname}
+            path={parseUrl(request.url).path}
             {...props}
           />
         )
